@@ -35,10 +35,18 @@ class Store
       name = '#{@name}',
       address = '#{@address}',
       type = '#{@type}'
-    WHERE id = #{@id};"
+      WHERE id = #{@id}
+      RETURNING * ;"
     store = store = SqlRunner.run( sql ).first
     return store
   end
+
+  def delete()
+    sql = "DELETE FROM stores WHERE id = #{@id} RETURNING * ;"
+    store = SqlRunner.run( sql ).first
+    return store
+  end
+
 
   def pets()
     sql = "SELECT * FROM pets WHERE store_id = #{@id};"
