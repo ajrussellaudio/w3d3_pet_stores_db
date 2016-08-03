@@ -2,7 +2,8 @@ require_relative "../db/sql_runner"
 
 class Store
 
-  attr_reader :id, :name, :address, :type
+  attr_accessor :name, :address, :type
+  attr_reader :id
 
   def self.all()
     sql = "SELECT * FROM stores;"
@@ -27,6 +28,16 @@ class Store
     sql = "INSERT INTO stores (name, address, type) VALUES ('#{@name}', '#{@address}', '#{@type}') RETURNING * ;"
     store = SqlRunner.run( sql ).first
     @id = store["id"].to_i
+  end
+
+  def update()
+    sql = "UPDATE stores SET
+      name = '#{@name}',
+      address = '#{@address}',
+      type = '#{@type}'
+    WHERE id = #{@id};"
+    store = store = SqlRunner.run( sql ).first
+    return store
   end
 
   def pets()

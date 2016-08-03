@@ -17,6 +17,9 @@ store2 = Store.new({
 store1.save
 store2.save
 
+store2.address = "138 Great Western Road"
+store2.update
+
 pet1 = Pet.new({
   "name"     => "Bacon",
   "type"     => "python",
