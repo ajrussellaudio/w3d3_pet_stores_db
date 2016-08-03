@@ -4,6 +4,12 @@ class Store
 
   attr_reader :id, :name, :address, :type
 
+  def self.all()
+    sql = "SELECT * FROM stores;"
+    stores = SqlRunner.run( sql )
+    return stores.map { |store| Store.new(store) }
+  end
+
   def initialize(options)
     @id      = options["id"].to_i
     @name    = options["name"]
@@ -18,7 +24,7 @@ class Store
   end
 
   def pets()
-    sql = "SELECT * FROM pets WHERE store_id = #{@id}"
+    sql = "SELECT * FROM pets WHERE store_id = #{@id};"
     pets = SqlRunner.run( sql )
     return pets.map { |pet_info| Pet.new(pet_info) }
   end
