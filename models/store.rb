@@ -10,6 +10,12 @@ class Store
     return stores.map { |store| Store.new(store) }
   end
 
+  def self.find( id )
+    sql = "SELECT * FROM stores WHERE id = #{id};"
+    store = SqlRunner.run( sql ).first
+    return store
+  end
+
   def initialize(options)
     @id      = options["id"].to_i
     @name    = options["name"]
