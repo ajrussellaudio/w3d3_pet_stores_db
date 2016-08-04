@@ -5,7 +5,7 @@ class Store
   attr_accessor :name, :address, :type
   attr_reader :id
 
-  def self.all()
+  def Store.all()
     sql = "SELECT * FROM stores;"
     stores = SqlRunner.run( sql )
     return stores.map { |store| Store.new(store) }
@@ -37,14 +37,14 @@ class Store
       type = '#{@type}'
       WHERE id = #{@id}
       RETURNING * ;"
-    store = store = SqlRunner.run( sql ).first
-    return store
+    SqlRunner.run( sql )
+    return self
   end
 
   def delete()
-    sql = "DELETE FROM stores WHERE id = #{@id} RETURNING * ;"
-    store = SqlRunner.run( sql ).first
-    return store
+    sql = "DELETE FROM stores WHERE id = #{@id};"
+    SqlRunner.run( sql )
+    return nil
   end
 
 

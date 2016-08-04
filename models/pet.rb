@@ -43,14 +43,14 @@ class Pet
       type = '#{@type}'
       WHERE id = #{@id}
       RETURNING * ;"
-    pet = SqlRunner.run( sql ).first
-    return pet
+    SqlRunner.run( sql )
+    return self
   end
 
   def delete()
-    sql = "DELETE FROM pets WHERE id = #{@id} RETURNING * ;"
-    pet = SqlRunner.run( sql ).first
-    return pet
+    sql = "DELETE FROM pets WHERE id = #{@id};"
+    SqlRunner.run( sql )
+    return self
   end
 
 
